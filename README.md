@@ -69,3 +69,10 @@ docker run -p 8000:8000 churn-api
 - `GET /health`
 - `POST /predict`
 - `POST /batch_predict`
+
+## Developer Information
+
+- **Developer:** Shashwat Singh
+- **Student Code:** IITP_AIML_2506887
+- **Email:** shashwatanshul@gmail.com
+
