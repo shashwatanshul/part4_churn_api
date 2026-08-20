@@ -5,10 +5,11 @@ import os
 import joblib
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, Field, ConfigDict, field_validator
 
-ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MODEL_PATH = ROOT / "app" / "model.pkl"
+BASE_DIR = Path(__file__).resolve().parent
+DEFAULT_MODEL_PATH = BASE_DIR / "model.pkl"
 MODEL_PATH = Path(os.getenv("MODEL_PATH", str(DEFAULT_MODEL_PATH)))
 
 app = FastAPI(
@@ -16,6 +17,12 @@ app = FastAPI(
     version="1.0.0",
     description="Internal API for churn probability scoring and retention prioritization.",
 )
+
+
+@app.get("/", include_in_schema=False)
+def root():
+    return RedirectResponse(url="/docs")
+
 
 ALLOWED_CITY_TIER = {"Tier 1", "Tier 2", "Tier 3"}
 ALLOWED_AGE_GROUP = {"18-24", "25-34", "35-44", "45+"}
